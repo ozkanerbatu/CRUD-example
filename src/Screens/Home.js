@@ -67,7 +67,7 @@ const HomeScreen = (props) => {
                         columnWrapperStyle={{ justifyContent: "space-evenly" }}
                         data={products}
                         renderItem={({ item }) => <ProductCard item={item} />}
-                        ListEmptyComponent={() => <View style={styles.emptyView} ><Text style={styles.emptyText} >No Products</Text></View>}
+                        ListEmptyComponent={() => !loading && <View style={styles.emptyView} ><Text style={styles.emptyText} >No Products</Text></View>}
                         numColumns={2}
                         contentContainerStyle={{ paddingBottom: 100 }}
                     />

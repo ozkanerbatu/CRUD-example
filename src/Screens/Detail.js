@@ -1,18 +1,22 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View, Dimensions, ScrollView } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
-
+const { height, width } = Dimensions.get("window")
 const DetailScreen = (props) => {
   const navigation = useNavigation()
   const { item } = props.route.params
   console.log(item);
   return (
-    <View>
+    <ScrollView>
       <Image source={{ uri: item.avatar }} style={styles.image} />
-      <Text>{item.name}</Text>
-      <Text>{item.price}</Text>
-      <Text>{item.description}</Text>
-    </View>
+      <View style={styles.container} >
+        <View style={styles.textView} >
+          <Text style={styles.text} >{item.name}</Text>
+          <Text style={styles.text}>${item.price}</Text>
+        </View>
+        <Text style={styles.textDesc}>{item.description}</Text>
+      </View>
+    </ScrollView>
   )
 }
 
@@ -20,8 +24,40 @@ export default DetailScreen
 
 const styles = StyleSheet.create({
   image: {
-    width: 100,
-    height: 100,
-    borderRadius: 50
+    width: width,
+    height: width,
+    borderRadius: 10
+  },
+  textView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 10
+  },
+  container: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    backgroundColor: "#fff",
+    height: height - width,
+    marginTop: -20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    zIndex: 1
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: "bold"
+  },
+  textDesc: {
+    fontSize: 14,
+    color: "#777"
+
   }
 })

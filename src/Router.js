@@ -12,9 +12,41 @@ function Router() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name="Home" component={HomeScreen}  />
-                <Stack.Screen name="Details" component={DetailScreen}  />
-                <Stack.Screen name="Add" component={AddScreen} />
+                <Stack.Screen name="Home" component={HomeScreen}
+                    options={{
+                        title: "UPayment Store",
+                        headerStyle: {
+                            backgroundColor: "#f4511e",
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                        },
+                    }} />
+                <Stack.Screen name="Details" component={DetailScreen}
+                    options={{
+                        title: "Detail",
+                        headerStyle: {
+                            backgroundColor: "#f4511e",
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                        },
+                    }}
+                />
+                <Stack.Screen name="Add" component={AddScreen}
+                    options={{
+                        title: "Add Product",
+                        headerStyle: {
+                            backgroundColor: "#f4511e",
+                        },
+                        headerTintColor: '#fff',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                        },
+                    }}
+                />
             </Stack.Navigator>
         </NavigationContainer>
     );

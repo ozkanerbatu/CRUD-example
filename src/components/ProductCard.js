@@ -10,8 +10,8 @@ const ProductCard = (props) => {
         <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("Details", { item })} >
             <Image source={{ uri: item.avatar }} style={styles.image} />
             <View style={styles.textView} >
-                <Text>{item.name}</Text>
-                <Text>$ {item.price}</Text>
+                <Text style={styles.text} >{item.name}</Text>
+                <Text style={styles.text} >$ {item.price}</Text>
             </View>
         </TouchableOpacity>
     )
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     textView: {
-        backgroundColor: "red",
+        backgroundColor: "#EF7438",
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -48,7 +48,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 5,
         borderRadius: 10,
-        
+    },
+    text: {
+        color: "white",
+        fontWeight: "bold"
     }
 
 })

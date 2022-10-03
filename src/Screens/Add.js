@@ -1,16 +1,15 @@
-import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import AddInput from '../components/AddInput'
-import CategoryBtn from '../components/CategoryBtn'
 import StoreService from '../services/Store'
 
 const AddScreen = (props) => {
-  const { selectedCategory, categories, setSelectedCategory } = props.route.params
+  const { selectedCategory, categories } = props.route.params
   const [data, setData] = useState({
     name: "",
     price: "",
     description: "",
-    category: selectedCategory,
+    category: selectedCategory === "All" ? "" : selectedCategory,
     avatar: "",
     developerEmail: "ozkanerbatuhan@gmail.com"
   })
@@ -19,17 +18,17 @@ const AddScreen = (props) => {
   }
   const handleSubmit = () => {
     StoreService.addProduct(data).then(res => {
-      if(res.message === "Success"){
+      if (res.message === "Success") {
         alert("Product Added")
         const addedCategory = res.product.category
-        props.navigation.navigate("Home",{addedCategory})
-      }else{
+        props.navigation.navigate("Home", { addedCategory })
+      } else {
         alert(res.message)
       }
     })
   }
   return (
-    <View style={styles.container} >
+    <ScrollView style={styles.container} >
       <AddInput
         placeholder="Name"
         style={styles.input}
@@ -46,7 +45,9 @@ const AddScreen = (props) => {
 
       <AddInput
         placeholder="Description"
-        style={[styles.input]}
+        style={[styles.input,{textAlignVertical: "top", height: 150}]}
+        returnKeyType="done"
+        numberOfLines={30}
         multiline
         value={data.description}
         onChangeText={text => mergeData({ description: text })}
@@ -57,11 +58,12 @@ const AddScreen = (props) => {
         value={data.avatar}
         onChangeText={text => mergeData({ avatar: text })}
       />
+      <Text style={styles.label} >Selected Category: {data.category}</Text>
       <FlatList
-        data={[{ name: "All", _id: "1" }, ...categories]}
+        data={categories}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => { mergeData({ category: item.name }) }} style={[styles.btn, data.category === item.name && { backgroundColor: "red" }]} >
-            <Text>{item.name}</Text>
+          <TouchableOpacity onPress={() => { mergeData({ category: item.name }) }} style={[styles.btn, data.category === item.name && { backgroundColor: "#EF7438" }]} >
+            <Text style={[styles.text,data.category !== item.name && { color: "black" }]} >{item.name}</Text>
           </TouchableOpacity>
         )}
         keyExtractor={item => item.id}
@@ -69,9 +71,9 @@ const AddScreen = (props) => {
         showsHorizontalScrollIndicator={false}
       />
       <TouchableOpacity onPress={handleSubmit} style={styles.submit} >
-        <Text>Add</Text>
+        <Text style={styles.text} >Add</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   )
 }
 
@@ -80,6 +82,7 @@ export default AddScreen
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
+    flex: 1,
   },
   input: {
     backgroundColor: '#f5f5f5',
@@ -106,12 +109,31 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   submit: {
-    backgroundColor: 'red',
+    backgroundColor: '#EF7438',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,
     margin: 5,
-    alignItems: 'center'
-
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
+    marginTop:50,
+    marginHorizontal:50
+  },
+  label: {
+    fontSize: 14,
+    color: "#777",
+    paddingHorizontal: 20,
+    paddingTop: 5
+  },
+  text: {
+    color: "white",
+    fontWeight: 'bold',
   }
 })

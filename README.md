@@ -1,6 +1,6 @@
 # batuhanOzkaner-reactnative
 ## Npm packages
-Axios, React Navigation, 
+Axios, React Navigation
 ## Available Scripts
 In the project directory, you can run: 
 ```

@@ -4,7 +4,7 @@ import React from 'react'
 const AddInput = (props) => {
   return (
     <View style={styles.container} >
-      {!!props.value.trim() && <Text style={styles.label} >{props.placeholder}</Text>}
+      {!!props.value && <Text style={styles.label} >{props.placeholder}</Text>}
         <TextInput style={[styles.input,props.style]} {...props}/>
     </View>
   )

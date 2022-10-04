@@ -15,8 +15,8 @@ class StoreService {
     async getProduct(id = "") {
         return (await this.instance.get(`products/${id}`)).data;
     }
-    async getCategory() {
-        return (await this.instance.get(`/categories`)).data
+    async getCategory(id="") {
+        return (await this.instance.get(`/categories/${id}`)).data
     }
     async addProduct(data) {
         return (await this.instance.post(`/products`, data)).data

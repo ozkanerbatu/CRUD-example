@@ -27,8 +27,8 @@ const HomeScreen = (props) => {
             }
         })
     }
-    const getCategories = () => {
-        StoreService.getCategory().then((res) => {
+    const getCategories = (id="") => {
+        StoreService.getCategory(id).then((res) => {
             if (res.message === 'Success') {
                 setCategories(res.categories)
             } else {

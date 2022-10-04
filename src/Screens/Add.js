@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import AddInput from '../components/AddInput'
 import StoreService from '../services/Store'
 
@@ -13,9 +13,18 @@ const AddScreen = (props) => {
     avatar: "",
     developerEmail: "ozkanerbatuhan@gmail.com"
   })
+  const [ categoriesList, setCategoriesList ] = useState(categories)
   const mergeData = (partialState) => {
     setData((prevState) => ({ ...prevState, ...partialState }))
   }
+  useEffect(() => {
+    StoreService.getCategory("").then((res) => {
+      if(res.message==="Success"){
+        setCategoriesList(res.categories)
+      }else alert(res.message)
+    })
+  }, [])
+  
   const handleSubmit = () => {
     StoreService.addProduct(data).then(res => {
       if (res.message === "Success") {
@@ -60,7 +69,7 @@ const AddScreen = (props) => {
       />
       <Text style={styles.label} >Selected Category: {data.category}</Text>
       <FlatList
-        data={categories}
+        data={categoriesList}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => { mergeData({ category: item.name }) }} style={[styles.btn, data.category === item.name && { backgroundColor: "#EF7438" }]} >
             <Text style={[styles.text,data.category !== item.name && { color: "black" }]} >{item.name}</Text>

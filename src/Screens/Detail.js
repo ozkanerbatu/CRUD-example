@@ -1,11 +1,22 @@
 import { Image, StyleSheet, Text, View, Dimensions, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import Store from '../services/Store'
 const { height, width } = Dimensions.get("window")
 const DetailScreen = (props) => {
   const navigation = useNavigation()
-  const { item } = props.route.params
-  console.log(item);
+  const { id } = props.route.params
+  const [item, setItem] = useState({})
+  useEffect(() => {
+    Store.getProduct(id).then((res) => {
+      if (res.message === 'Success') {
+        setItem(res.product)
+      } else {
+        alert(res.message)
+      }
+    })
+  }, [])
+
   return (
     <ScrollView>
       <Image source={{ uri: item.avatar }} style={styles.image} />

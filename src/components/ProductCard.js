@@ -7,7 +7,7 @@ const ProductCard = (props) => {
     const { item } = props
     const navigation = useNavigation()
     return (
-        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("Details", { item })} >
+        <TouchableOpacity style={styles.container} onPress={() => navigation.navigate("Details", { id:item._id })} >
             <Image source={{ uri: item.avatar }} style={styles.image} />
             <View style={styles.textView} >
                 <Text style={styles.text} >{item.name}</Text>

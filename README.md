@@ -1,4 +1,4 @@
-# batuhanOzkaner-reactnative
+# CRUD-example
 ## Npm packages
 Axios, React Navigation
 ## Available Scripts
